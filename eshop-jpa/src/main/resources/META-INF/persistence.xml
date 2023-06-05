@@ -21,8 +21,8 @@
 
 		<!-- Propriétés Hibernate -->
 		<properties>
-			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/eshop" />
-			<property name="hibernate.connection.user" value="postgres" />
+			<property name="hibernate.connection.url" value="jdbc:h2:file:~/eshop" />
+			<property name="hibernate.connection.user" value="sa" />
 			<property name="hibernate.connection.password" value="admin" />
 			
 			<property name="hibernate.hbm2ddl.auto" value="update" />
