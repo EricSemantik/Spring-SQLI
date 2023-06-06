@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -29,6 +30,7 @@ public class ProduitRepositoryJpaTest {
 		repoProduit = context.getBean(IProduitRepository.class);
 	}
 
+	@AfterClass
 	public static void end() {
 		context.close();
 	}

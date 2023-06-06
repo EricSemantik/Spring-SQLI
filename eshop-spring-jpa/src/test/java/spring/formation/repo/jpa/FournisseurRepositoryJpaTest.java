@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -30,6 +31,7 @@ public class FournisseurRepositoryJpaTest {
 		repoFournisseur = context.getBean(IFournisseurRepository.class);
 	}
 	
+	@AfterClass
 	public static void end() {
 		context.close();
 	}
