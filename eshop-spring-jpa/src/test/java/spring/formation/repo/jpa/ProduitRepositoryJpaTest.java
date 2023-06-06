@@ -9,31 +9,22 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import spring.formation.config.ApplicationConfig;
 import spring.formation.model.Fournisseur;
 import spring.formation.model.Produit;
 import spring.formation.repo.IProduitRepository;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = ApplicationConfig.class)
 public class ProduitRepositoryJpaTest {
-	private static AnnotationConfigApplicationContext context;
-	private static IProduitRepository repoProduit;
-
-	@BeforeClass
-	public static void start() {
-		context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-
-		repoProduit = context.getBean(IProduitRepository.class);
-	}
-
-	@AfterClass
-	public static void end() {
-		context.close();
-	}
+	@Autowired
+	private IProduitRepository repoProduit;
 
 	@Test
 	public void testFindAll() {

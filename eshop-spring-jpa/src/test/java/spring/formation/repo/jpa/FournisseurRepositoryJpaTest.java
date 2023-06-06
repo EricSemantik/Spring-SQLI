@@ -9,32 +9,23 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import spring.formation.model.Fournisseur;
 import spring.formation.repo.IFournisseurRepository;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "/application-context.xml")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class FournisseurRepositoryJpaTest {
-	private static ClassPathXmlApplicationContext context;
-	private static IFournisseurRepository repoFournisseur;
-	
-	@BeforeClass
-	public static void start() {
-		context = new ClassPathXmlApplicationContext("application-context.xml");
-		
-		repoFournisseur = context.getBean(IFournisseurRepository.class);
-	}
-	
-	@AfterClass
-	public static void end() {
-		context.close();
-	}
+	@Autowired
+	private IFournisseurRepository repoFournisseur;
 	
 //	@Test
 	public void testFindAll() {
