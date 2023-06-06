@@ -58,7 +58,7 @@ public class FournisseurRepositoryJpa implements IFournisseurRepository {
 		em.getTransaction().begin();
 
 		try {
-			if (em.contains(entity)) {
+			if (!em.contains(entity)) {
 				em.persist(entity);
 			}
 
@@ -87,7 +87,7 @@ public class FournisseurRepositoryJpa implements IFournisseurRepository {
 		em.getTransaction().begin();
 
 		try {
-			em.createQuery("delete from Fournisseur e where e.id = ?1").setParameter(1, id).executeUpdate();
+			em.createQuery("delete from Fournisseur e where e.id = :idFournisseur").setParameter("idFournisseur", id).executeUpdate();
 			em.getTransaction().commit();
 		}
 

@@ -1,8 +1,8 @@
 
-eshop-jpa/.classpath
+.classpath
 
-eshop-jpa/.project
+.project
 
-eshop-jpa/.settings/
+.settings/
 
-eshop-jpa/target/
+target/

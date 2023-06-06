@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 @Entity
 @DiscriminatorValue("client")
 public class Client extends Personne {
-	@Column(name = "CLI_PRENOM", length = 100, nullable = false)
+	@Column(name = "CLI_PRENOM", length = 100)
 	private String prenom;
 
 	@OneToMany(mappedBy = "client")

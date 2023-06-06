@@ -23,7 +23,7 @@
 		<properties>
 			<property name="hibernate.connection.url" value="jdbc:h2:file:~/eshop" />
 			<property name="hibernate.connection.user" value="sa" />
-			<property name="hibernate.connection.password" value="admin" />
+			<property name="hibernate.connection.password" value="" />
 			
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<!-- On imprime les requêtes SQL générées par Hibernate dans la console -->
