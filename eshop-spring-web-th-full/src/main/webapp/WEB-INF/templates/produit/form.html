@@ -9,7 +9,7 @@
 <body>
 	<section layout:fragment="monContenu">
 		<div class="card mt-3">
-			<form th:action="@{/produit/save}" method="post">
+			<form th:action="@{/produit/saveBis}" method="post">
 				<input type="hidden" name="id" th:value="${produit.id}" />
 				<div class="card-header bg-primary text-white display-6">Edition du produit</div>
 				<div class="card-body">

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -93,6 +94,22 @@ public class ProduitController {
 
 		produitRepo.save(produit);
 
+		return "redirect:list";
+	}
+	
+	@PostMapping("/saveBis")
+	public String saveBis(@ModelAttribute("produit") Produit produit, @RequestParam(required = false) Long idFournisseur) {
+		if (idFournisseur != null) {
+			Fournisseur fournisseur = new Fournisseur();
+			fournisseur.setId(idFournisseur);
+
+			produit.setFournisseur(fournisseur);
+		} else {
+			produit.setFournisseur(null);
+		}
+
+		produitRepo.save(produit);
+		
 		return "redirect:list";
 	}
 
