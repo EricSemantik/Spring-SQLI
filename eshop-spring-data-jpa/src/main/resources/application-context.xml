@@ -18,6 +18,9 @@
 	<!-- Indiquer dans quel paquetage scanner pour trouver des annotations -->
 	<context:component-scan base-package="spring.formation.repo"/>
 	
+	<!-- Chargement du fichier sgbd.properties -->
+	<context:property-placeholder location="classpath:sgbd.properties"/>
+	
 	<!-- Indiquer dans quel paquetage scanner pour trouver des interfaces qui étendent JpaRepository -->
 	<jpa:repositories base-package="spring.formation.repo"/>
 
