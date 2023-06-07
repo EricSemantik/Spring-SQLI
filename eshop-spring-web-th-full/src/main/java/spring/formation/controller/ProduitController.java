@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
+import spring.formation.controller.validator.ProduitValidator;
 import spring.formation.model.Fournisseur;
 import spring.formation.model.Produit;
 import spring.formation.repo.IFournisseurRepository;
@@ -102,6 +103,8 @@ public class ProduitController {
 	
 	@PostMapping("/saveBis")
 	public String saveBis(@ModelAttribute("produit") @Valid Produit produit, BindingResult result, @RequestParam(required = false) Long idFournisseur) {
+		new ProduitValidator().validate(produit, result);
+		
 		if(result.hasErrors()) {
 			return "produit/form";
 		}
