@@ -15,4 +15,15 @@
 	<!-- Scanner le package où se situe les Controller -->
 	<context:component-scan base-package="spring.formation.controller"/>
 	
+	<!-- Configuration des exclusions sur les urls ...../css/** vers un répertoire physique -->
+	<mvc:resources location="/css/" mapping="/css/**" />
+	<mvc:resources location="/js/" mapping="/js/**" />
+	
+	<!-- Configuration du mode restitution des Vues avec les JSP/JSTL -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
 </beans>
