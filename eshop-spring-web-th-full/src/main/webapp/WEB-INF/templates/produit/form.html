@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout.html">
+<head>
+<meta charset="UTF-8">
+<title>Edition du produit</title>
+</head>
+<body>
+	<section layout:fragment="monContenu">
+		<div class="card mt-3">
+			<form th:action="@{/produit/save}" method="post">
+				<input type="hidden" name="id" th:value="${produit.id}" />
+				<div class="card-header bg-primary text-white display-6">Edition du produit</div>
+				<div class="card-body">
+					<div class="form-group">
+						<label for="libelle">Nom:</label> <input type="text"
+							class="form-control" id="libelle" name="libelle"
+							th:value="${produit.libelle}" />
+						<span class="text-danger" th:errors="${produit.libelle}"></span>
+					</div>
+					<div class="form-group">
+						<label for="prixAchat">Prix d'achat:</label> <input type="number"
+							class="form-control" id="prixAchat" name="prixAchat"
+							th:value="${produit.prixAchat}" />
+						<span class="text-danger" th:errors="${produit.prixAchat}"></span>
+					</div>
+					<div class="form-group">
+						<label for="prixVente">Prix de vente:</label> <input type="number"
+							class="form-control" id="prixVente" name="prixVente"
+							th:value="${produit.prixVente}" />
+						<span class="text-danger" th:errors="${produit.prixVente}"></span>
+					</div>
+					<div class="form-group">
+						<label for="reference">Référence:</label> <input type="text"
+							class="form-control" id="reference" name="reference"
+							th:value="${produit.reference}" />
+						<span class="text-danger" th:errors="${produit.reference}"></span>
+					</div>
+					<div class="form-group">
+						<label for="modele">Modèle:</label> <input type="text"
+							class="form-control" id="modele" name="modele"
+							th:value="${produit.modele}" />
+						<span class="text-danger" th:errors="${produit.modele}"></span>
+					</div>
+					<div class="form-group">
+						<label for="stock">Stock:</label> <input type="number"
+							class="form-control" id="stock" name="stock"
+							th:value="${produit.stock}" />
+						<span class="text-danger" th:errors="${produit.stock}"></span>
+					</div>
+					<div class="form-group">
+						<label for="idFournisseur">Fournisseur:</label>
+						<select class="form-control" id="idFournisseur" name="idFournisseur">
+							<option value="">Veuillez sélectionner un fournisseur</option>
+							<option th:each="fournisseur : ${fournisseurs}" th:value="${fournisseur.id}" th:selected="${produit.fournisseur?.id == fournisseur.id}">[[${fournisseur.nom}]]</option>
+						</select> 
+					</div>
+				</div>
+				<div class="card-footer">
+					<div class="btn-group btn-group-lg float-right">
+						<button type="submit" class="btn btn-success"><i class="bi bi-check-square-fill"></i></button>
+						<a th:href="@{/produit/cancel}" class="btn btn-warning"><i class="bi bi-backspace-fill"></i></a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+</body>
+</html>

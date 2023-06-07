@@ -20,46 +20,50 @@ import spring.formation.repo.IProduitRepository;
 @Controller
 @RequestMapping("/produit")
 public class ProduitController {
-	
-	@Autowired
+
 	private IFournisseurRepository fournisseurRepository;
-	
-	@Autowired
+
 	private IProduitRepository produitRepository;
-	
-	@GetMapping({"", "/list"}) // ETAPE 1 : Réception de la Request
+
+	public ProduitController(IFournisseurRepository fournisseurRepository, IProduitRepository produitRepository) {
+		super();
+		this.fournisseurRepository = fournisseurRepository;
+		this.produitRepository = produitRepository;
+	}
+
+	@GetMapping({ "", "/list" }) // ETAPE 1 : Réception de la Request
 	public String list(Model model) {
 		// ETAPE 2 : Récupération des données
 		List<Produit> produits = produitRepository.findAll();
-		
+
 		// ETAPE 3 : Renseigner le Model
 		model.addAttribute("mesProduits", produits);
-		
+
 		return "produit/list"; // ETAPE 4 : Appel de la View
 	}
-	
+
 	@GetMapping("/add")
 	public String add(Model model) {
 		model.addAttribute("fournisseurs", fournisseurRepository.findAll());
-		
+
 		return "produit/form";
 	}
-	
+
 	@GetMapping("/edit")
 	public String edit(@RequestParam Long id, Model model) {
-		Optional<Produit> optProduit = produitRepository.findById(id)	;
-		
+		Optional<Produit> optProduit = produitRepository.findById(id);
+
 		model.addAttribute("produit", optProduit.get());
 		model.addAttribute("fournisseurs", fournisseurRepository.findAll());
-		
+
 		return "produit/form";
 	}
-	
+
 	@PostMapping("/save")
-	public String save(@RequestParam(required = false) Long id, @RequestParam String libelle, @RequestParam Double prixAchat,
-			@RequestParam Double prixVente, @RequestParam String reference, @RequestParam String modele,
-			@RequestParam int stock, @RequestParam(required = false) Long idFournisseur) {
-		
+	public String save(@RequestParam(required = false) Long id, @RequestParam String libelle,
+			@RequestParam Double prixAchat, @RequestParam Double prixVente, @RequestParam String reference,
+			@RequestParam String modele, @RequestParam int stock, @RequestParam(required = false) Long idFournisseur) {
+
 		Produit produit = null;
 
 		if (id == null) {
@@ -74,28 +78,28 @@ public class ProduitController {
 		produit.setReference(reference);
 		produit.setModele(modele);
 		produit.setStock(stock);
-		
-		if(idFournisseur != null) {
+
+		if (idFournisseur != null) {
 			Fournisseur fournisseur = new Fournisseur();
 			fournisseur.setId(idFournisseur);
-			
+
 			produit.setFournisseur(fournisseur);
 		} else {
 			produit.setFournisseur(null);
 		}
-		
+
 		produitRepository.save(produit);
 
 		return "redirect:list";
 	}
-	
+
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable Long id) {
 		produitRepository.deleteById(id);
-		
+
 		return "redirect:../list";
 	}
-	
+
 	@GetMapping("/cancel")
 	public String cancel(Model model) {
 		return "forward:";
