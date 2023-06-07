@@ -9,4 +9,10 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	
+	<!-- Activation des annotations @Controller, @RequestMapping, ... -->
+	<mvc:annotation-driven/>
+	
+	<!-- Scanner le package où se situe les Controller -->
+	<context:component-scan base-package="spring.formation.controller"/>
+	
 </beans>
