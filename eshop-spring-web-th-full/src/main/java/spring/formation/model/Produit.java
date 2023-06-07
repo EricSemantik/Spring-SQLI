@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "produit")
@@ -25,6 +26,7 @@ public class Produit {
 	@Column(name = "PRO_ID")
 	private Long id;
 	@Column(name = "PRO_NOM", length = 150)
+	@NotEmpty(message = "Le libellé est obligatoire")
 	private String libelle;
 
 	@Column(name = "PRO_PRIX_ACHAT", precision = 10, scale = 2)
