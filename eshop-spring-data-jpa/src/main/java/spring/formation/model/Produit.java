@@ -18,6 +18,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "produit")
 @NamedQuery(name = "Produit.findByPrixBetween", query = "select p from Produit p where p.prixVente between ?1 and ?2")
+@NamedQuery(name = "Produit.findWithoutStock", query = "select p from Produit p where p.stock = 0")
 public class Produit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

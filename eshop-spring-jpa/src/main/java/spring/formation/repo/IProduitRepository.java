@@ -6,4 +6,5 @@ import spring.formation.model.Produit;
 
 public interface IProduitRepository extends IRepository<Produit> {
 	public List<Produit> findByPrixBetween(Double a, Double b);
+	
 }

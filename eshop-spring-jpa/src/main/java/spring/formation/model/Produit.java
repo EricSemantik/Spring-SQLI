@@ -11,11 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "produit")
+@NamedQuery(name = "Produit.findByMaReference", query = "select p from Produit p where p.reference = ?1")
 public class Produit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
