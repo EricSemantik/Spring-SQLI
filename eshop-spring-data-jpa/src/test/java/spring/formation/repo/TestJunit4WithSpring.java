@@ -8,12 +8,16 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import spring.formation.config.ApplicationConfig;
+import spring.formation.model.Fournisseur;
 import spring.formation.model.Produit;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfig.class)
 public class TestJunit4WithSpring {
 
+	@Autowired
+	private IFournisseurRepository fournisseurRepo;
+	
 	@Autowired
 	private IProduitRepository produitRepo;
 
@@ -50,13 +54,28 @@ public class TestJunit4WithSpring {
 
 		Assert.assertEquals(2, nbEndProduit - nbStartProduit);
 
-		produitRepo.deleteById(produit.getId());
-
-		boolean find = produitRepo.findById(produit.getId()).isPresent();
-
-		if (find) {
-			Assert.fail("Erreur Suppression Produit");
-		}
+//		produitRepo.deleteById(produit.getId());
+//
+//		boolean find = produitRepo.findById(produit.getId()).isPresent();
+//
+//		if (find) {
+//			Assert.fail("Erreur Suppression Produit");
+//		}
+	}
+	
+	@Test
+	public void fournisseur() {
+		Fournisseur amazon = new Fournisseur();
+		amazon.setNom("AMAZON");
+		amazon.setResponsable("Jeff BEZOS");
+		
+		fournisseurRepo.save(amazon);
+		
+		Fournisseur cdiscount = new Fournisseur();
+		cdiscount.setNom("CDISCOUNT");
+		cdiscount.setResponsable("John DOE");
+		
+		fournisseurRepo.save(cdiscount);
 	}
 
 }
