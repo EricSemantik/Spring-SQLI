@@ -19,63 +19,63 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import spring.formation.model.Adresse;
+import spring.formation.model.Commande;
 import spring.formation.model.Views;
-import spring.formation.repo.IAdresseRepository;
+import spring.formation.repo.ICommandeRepository;
 
 @RestController
-@RequestMapping("/adresse")
+@RequestMapping("/commande")
 @CrossOrigin("*")
 public class CommandeRestController {
 	@Autowired
-	private IAdresseRepository adresseRepo;
+	private ICommandeRepository commandeRepo;
 
 	@GetMapping("")
-	@JsonView(Views.ViewAdresse.class)
-	public List<Adresse> findAll() {
-		List<Adresse> adresses = adresseRepo.findAll();
+	@JsonView(Views.ViewCommande.class)
+	public List<Commande> findAll() {
+		List<Commande> commandes = commandeRepo.findAll();
 
-		return adresses;
+		return commandes;
 	}
 
 	@GetMapping("/{id}")
-	@JsonView(Views.ViewAdresse.class)
-	public Adresse findById(@PathVariable Long id) {
-		Optional<Adresse> optAdresse = adresseRepo.findById(id);
+	@JsonView(Views.ViewCommande.class)
+	public Commande findById(@PathVariable Long id) {
+		Optional<Commande> optCommande = commandeRepo.findById(id);
 
-		if (optAdresse.isPresent()) {
-			return optAdresse.get();
+		if (optCommande.isPresent()) {
+			return optCommande.get();
 		}
 
-		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Adresse non trouvé");
+		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Commande non trouvé");
 	}
 	
 	@PostMapping("")
-	@JsonView(Views.ViewAdresse.class)
-	public Adresse create(@RequestBody Adresse adresse, BindingResult result) {
-		adresse = adresseRepo.save(adresse);
+	@JsonView(Views.ViewCommande.class)
+	public Commande create(@RequestBody Commande commande, BindingResult result) {
+		commande = commandeRepo.save(commande);
 
-		return adresse;
+		return commande;
 	}
 
 	@PutMapping("/{id}")
-	@JsonView(Views.ViewAdresse.class)
-	public Adresse update(@PathVariable Long id, @RequestBody Adresse adresse) {
-		if (!adresseRepo.existsById(id)) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Adresse non trouvé");
+	@JsonView(Views.ViewCommande.class)
+	public Commande update(@PathVariable Long id, @RequestBody Commande commande) {
+		if (!commandeRepo.existsById(id)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Commande non trouvé");
 		}
 
-		adresse = adresseRepo.save(adresse);
+		commande = commandeRepo.save(commande);
 
-		return adresse;
+		return commande;
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		if (!adresseRepo.existsById(id)) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Adresse non trouvé");
+		if (!commandeRepo.existsById(id)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Commande non trouvé");
 		}
 
-		adresseRepo.deleteById(id);
+		commandeRepo.deleteById(id);
 	}
 }

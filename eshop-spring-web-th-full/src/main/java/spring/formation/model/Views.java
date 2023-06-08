@@ -21,6 +21,8 @@ public class Views {
 	
 	public static class ViewClient extends ViewPersonne {}
 	
+	public static class ViewClientDetail extends ViewClient {}
+	
 	public static class ViewCommentaire extends ViewBasic {}
 	
 	public static class ViewReparateur extends ViewBasic {}

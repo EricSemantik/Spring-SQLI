@@ -50,6 +50,18 @@ public class ClientRestController {
 		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Client non trouvé");
 	}
 	
+	@GetMapping("/{id}/detail")
+	@JsonView(Views.ViewClientDetail.class)
+	public Client detailById(@PathVariable Long id) {
+		Optional<Client> optClient = clientRepo.findByIdWithCommandes(id);
+
+		if (optClient.isPresent()) {
+			return optClient.get();
+		}
+
+		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Client non trouvé");
+	}
+	
 	@PostMapping("")
 	@JsonView(Views.ViewClient.class)
 	public Client create(@RequestBody Client client, BindingResult result) {
