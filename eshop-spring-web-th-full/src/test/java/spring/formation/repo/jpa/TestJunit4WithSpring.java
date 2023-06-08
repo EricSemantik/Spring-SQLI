@@ -1,15 +1,18 @@
 package spring.formation.repo.jpa;
 
+import java.util.Date;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import spring.formation.config.ApplicationConfig;
+import spring.formation.model.Commentaire;
 import spring.formation.model.Produit;
+import spring.formation.repo.ICommentaireRepository;
 import spring.formation.repo.IProduitRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -17,14 +20,17 @@ import spring.formation.repo.IProduitRepository;
 public class TestJunit4WithSpring {
 
 	@Autowired
-	private IProduitRepository produitRepo;
+	private ICommentaireRepository commentaireRepo;
 	
+	@Autowired
+	private IProduitRepository produitRepo;
+
 	@Test
 	public void produit() {
 		int nbStartProduit = produitRepo.findAll().size();
 
 		Produit produit = new Produit("IPhone 13", 1000.0, 1300.0);
-		
+
 		produit = produitRepo.save(produit);
 
 		Produit produitBis = new Produit("Nintendo Switch", 150.0, 250.0);
@@ -54,11 +60,30 @@ public class TestJunit4WithSpring {
 
 		produitRepo.deleteById(produit.getId());
 
-		boolean find =  produitRepo.findById(produit.getId()).isPresent();
+		boolean find = produitRepo.findById(produit.getId()).isPresent();
 
 		if (find) {
 			Assert.fail("Erreur Suppression Produit");
 		}
+	}
+
+	@Test
+	public void commentaires() {
+		Produit produit = new Produit("IPhone 13", 1000.0, 1300.0);
+
+		produit = produitRepo.save(produit);
+
+		Produit produitBis = new Produit("Nintendo Switch", 150.0, 250.0);
+		produitBis = produitRepo.save(produitBis);
+		
+		Commentaire comment01 = new Commentaire();
+		comment01.setCommentaire("Super produit !!!");
+		comment01.setDate(new Date());
+		comment01.setNote(10);
+		comment01.setProduit(produitBis);
+		
+		commentaireRepo.save(comment01);
+
 	}
 
 }

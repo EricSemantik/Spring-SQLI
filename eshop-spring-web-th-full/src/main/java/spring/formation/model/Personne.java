@@ -9,6 +9,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "personne")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -16,8 +18,11 @@ import javax.persistence.Table;
 public abstract class Personne {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(Views.ViewBasic.class)
 	protected Long id;
+	@JsonView(Views.ViewBasic.class)
 	protected String nom;
+	@JsonView(Views.ViewBasic.class)
 	protected String adresse;
 
 	public Long getId() {

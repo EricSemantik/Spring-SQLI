@@ -1,6 +1,7 @@
 package spring.formation.repo;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -18,4 +19,7 @@ public interface IProduitRepository extends JpaRepository<Produit, Long> {
 	@Modifying
 	@Query("update Produit p set p.stock = ?1 where p.id = ?2")
 	void updateStockByProduit(int stock, Long idProduit);
+	
+	@Query("select distinct p from Produit p left join fetch p.commentaires where p.id = ?1")
+	Optional<Produit> findByIdWithComments(Long id);
 }

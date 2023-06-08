@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "produit")
 @NamedQuery(name = "Produit.findByPrixBetween", query = "select p from Produit p where p.prixVente between ?1 and ?2")
@@ -24,34 +27,43 @@ public class Produit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PRO_ID")
+	@JsonView(Views.ViewProduit.class)
 	private Long id;
 	@Column(name = "PRO_NOM", length = 150)
 	@NotEmpty(message = "Le libellé est obligatoire")
+	@JsonView(Views.ViewProduit.class)
 	private String libelle;
 
 	@Column(name = "PRO_PRIX_ACHAT", precision = 10, scale = 2)
+	@JsonView(Views.ViewProduit.class)
 	private Double prixAchat;
 
 	@Column(name = "PRO_PRIX_VENTE", precision = 10, scale = 2)
+	@JsonView(Views.ViewProduit.class)
 	private Double prixVente;
 
 	@Column(name = "PRO_REFERENCE", length = 100)
+	@JsonView(Views.ViewProduit.class)
 	private String reference;
 
 	@Column(name = "PRO_MODELE", length = 100)
+	@JsonView(Views.ViewProduit.class)
 	private String modele;
 
 	@Column(name = "PRO_STOCK")
+	@JsonView(Views.ViewProduit.class)
 	private int stock;
 
 	@ManyToOne
 	@JoinColumn(name = "PRO_FOURNISSEUR_ID")
+	@JsonView(Views.ViewProduitWithFournisseur.class)
 	private Fournisseur fournisseur;
 
 	@OneToMany(mappedBy = "produit")
 	private List<CommandeDetail> details = new ArrayList<>();
 
 	@OneToMany(mappedBy = "produit")
+	@JsonView(Views.ViewProduitWithCommentaires.class)
 	private List<Commentaire> commentaires = new ArrayList<>();
 
 	@ManyToMany(mappedBy = "produitsReparables")
@@ -159,8 +171,6 @@ public class Produit {
 		this.prixAchat = prixAchat;
 		this.prixVente = prixVente;
 	}
-	
-	
 
 	public Produit(Long id, String libelle, Double prixAchat, Double prixVente, String reference, String modele,
 			int stock) {
