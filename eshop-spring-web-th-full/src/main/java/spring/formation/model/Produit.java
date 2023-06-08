@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,31 +26,31 @@ public class Produit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PRO_ID")
-	@JsonView(Views.ViewProduit.class)
+	@JsonView(Views.ViewBasic.class)
 	private Long id;
 	@Column(name = "PRO_NOM", length = 150)
 	@NotEmpty(message = "Le libellé est obligatoire")
-	@JsonView(Views.ViewProduit.class)
+	@JsonView(Views.ViewBasic.class)
 	private String libelle;
 
 	@Column(name = "PRO_PRIX_ACHAT", precision = 10, scale = 2)
-	@JsonView(Views.ViewProduit.class)
+	@JsonView(Views.ViewBasic.class)
 	private Double prixAchat;
 
 	@Column(name = "PRO_PRIX_VENTE", precision = 10, scale = 2)
-	@JsonView(Views.ViewProduit.class)
+	@JsonView(Views.ViewBasic.class)
 	private Double prixVente;
 
 	@Column(name = "PRO_REFERENCE", length = 100)
-	@JsonView(Views.ViewProduit.class)
+	@JsonView(Views.ViewBasic.class)
 	private String reference;
 
 	@Column(name = "PRO_MODELE", length = 100)
-	@JsonView(Views.ViewProduit.class)
+	@JsonView(Views.ViewBasic.class)
 	private String modele;
 
 	@Column(name = "PRO_STOCK")
-	@JsonView(Views.ViewProduit.class)
+	@JsonView(Views.ViewBasic.class)
 	private int stock;
 
 	@ManyToOne

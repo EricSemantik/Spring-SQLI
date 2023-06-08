@@ -15,31 +15,39 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "commentaire")
 public class Commentaire {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "COM_ID")
+	@JsonView(Views.ViewBasic.class)
 	private Long id;
 
 	@Column(name = "COM_DATE", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	@JsonView(Views.ViewBasic.class)
 	private Date date = new Date();
 
 	@Column(name = "COM_NOTE", nullable = false)
+	@JsonView(Views.ViewBasic.class)
 	private int note = 0;
 
 	@Column(name = "COM_COMMENTAIRE", nullable = false)
+	@JsonView(Views.ViewBasic.class)
 	private String commentaire;
 
 	@ManyToOne
 	@JoinColumn(name = "COM_PRODUIT_ID")
+	@JsonView(Views.ViewCommentaire.class)
 	private Produit produit;
 
 	@ManyToOne
 	@JoinColumn(name = "COM_CLIENT_ID")
+	@JsonView(Views.ViewCommentaire.class)
 	private Client client;
 
 	public Long getId() {
