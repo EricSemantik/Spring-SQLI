@@ -21,7 +21,7 @@ public class Formation {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nom;
-	private String duree;
+	private int duree;
 	@Temporal(TemporalType.DATE)
 	private Date dateDebut;
 	@ManyToOne
@@ -35,7 +35,7 @@ public class Formation {
 		super();
 	}
 
-	public Formation(String nom, String duree, Date dateDebut) {
+	public Formation(String nom, int duree, Date dateDebut) {
 		super();
 		this.nom = nom;
 		this.duree = duree;
@@ -58,11 +58,11 @@ public class Formation {
 		this.nom = nom;
 	}
 
-	public String getDuree() {
+	public int getDuree() {
 		return duree;
 	}
 
-	public void setDuree(String duree) {
+	public void setDuree(int duree) {
 		this.duree = duree;
 	}
 
